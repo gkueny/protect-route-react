@@ -1,4 +1,4 @@
-  Ce projet a été généré grâce à Create React App](https://github.com/facebookincubator/create-react-app).
+  Ce projet a été généré grâce à [Create React App](https://github.com/facebookincubator/create-react-app).
 
 # Protéger ses routes
 
