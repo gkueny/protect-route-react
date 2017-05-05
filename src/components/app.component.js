@@ -16,6 +16,7 @@ const AppComponent = props => {
           <ul>
             <li><Link to="/">Accueil</Link></li>
             <li><Link to="admin">Admin</Link></li>
+            <li><Link to="login">Connexion</Link></li>
           </ul>
         </nav>
       </div>

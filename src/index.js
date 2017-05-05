@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AppComponent from './components/app.component';
 import HomeComponent from './components/home.component';
 import AdminComponent from './components/admin.component';
+import LoginComponent from './components/login.component';
 
 import './assets/css/index.css';
 
@@ -14,6 +15,7 @@ ReactDOM.render(
     <AppComponent>
       <Route exact path="/" component={HomeComponent} />
       <Route path="/admin" component={AdminComponent} />
+      <Route path="/login" component={LoginComponent} />
     </AppComponent>
   </Router>,
   document.getElementById('root'),
