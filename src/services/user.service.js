@@ -6,11 +6,11 @@ import * as firebase from 'firebase';
  * @return {Boolean}           return users's status type
  */
 export const checkUserStatus = callback => {
-  firebase.auth().onAuthStateChanged(user => {
-    const statut = user ? true : false;
+  const user = firebase.auth().currentUser;
 
-    callback(statut);
-  });
+  const statut = user ? true : false;
+  callback(statut);
+  //});
 };
 
 /**
