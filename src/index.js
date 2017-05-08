@@ -8,7 +8,12 @@ import HomeComponent from './components/home.component';
 import AdminComponent from './components/admin.component';
 import LoginComponent from './components/login.component';
 
+import * as firebase from 'firebase';
+import { config } from './vars/firebase.config';
+
 import './assets/css/index.css';
+
+firebase.initializeApp(config);
 
 ReactDOM.render(
   <Router>
