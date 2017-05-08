@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import * as userServices from '../services/user.service';
 
@@ -8,30 +7,30 @@ import '../assets/css/App.css';
 class LoginComponent extends Component {
   constructor() {
     super();
-
     this.state = {
       transition: false,
       isSignIn: null,
-      error: '',
+      error: null,
     };
   }
 
-  componentWillMount() {
-    this.checkUserStatus();
+  componentDidMount() {
+    userServices.checkUserStatus(this.updateUserStatus);
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (this.state === nextState) {
-      this.checkUserStatus();
+  componentDidUpdate(lastProps, lastState) {
+    // check if user is deconnected
+    if (this.state === lastState && !this.state.isSignIn) {
+      userServices.checkUserStatus(this.updateUserStatus);
     }
   }
 
-  checkUserStatus = () => {
-    userServices.checkUserStatus(isSignIn => {
+  updateUserStatus = isSignIn => {
+    if (this.state.isSignIn !== isSignIn) {
       this.setState({
         isSignIn,
       });
-    });
+    }
   };
 
   signIn = () => {
@@ -85,9 +84,5 @@ class LoginComponent extends Component {
     );
   }
 }
-
-LoginComponent.propTypes = {
-  history: PropTypes.object,
-};
 
 export default LoginComponent;
