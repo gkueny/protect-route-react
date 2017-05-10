@@ -18,7 +18,7 @@ class ProtectedRoute extends Component {
   }
 
   //Sera appelé lorsque l'on changera de route
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     this.state = {
       isLogIn: null,
     };
@@ -43,14 +43,7 @@ class ProtectedRoute extends Component {
           if (this.state.isLogIn) {
             return <Component {...props} />;
           } else if (this.state.isLogIn !== null) {
-            return (
-              <Redirect
-                to={{
-                  pathname: 'login',
-                  state: { from: this.props.location },
-                }}
-              />
-            );
+            return <Redirect to={'login'} />;
           } else {
             return null;
           }
