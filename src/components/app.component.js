@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import logo from '../assets/images/logo.svg';
 import '../assets/css/App.css';
@@ -14,9 +14,9 @@ const AppComponent = props => {
         <h2>Hey ! Bienvenue sur ton application React</h2>
         <nav>
           <ul>
-            <li><Link to="/">Accueil</Link></li>
-            <li><Link to="admin">Admin</Link></li>
-            <li><Link to="login">Connexion</Link></li>
+            <li><NavLink exact to="/">Accueil</NavLink></li>
+            <li><NavLink to="/admin">Admin</NavLink></li>
+            <li><NavLink to="/login">Connexion</NavLink></li>
           </ul>
         </nav>
       </div>
