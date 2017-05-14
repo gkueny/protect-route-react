@@ -15,13 +15,13 @@ class LoginComponent extends Component {
   }
 
   componentDidMount() {
-    userServices.checkUserStatus(this.updateUserStatus);
+    userServices.checkUserStatus().then(this.updateUserStatus);
   }
 
   componentDidUpdate(lastProps, lastState) {
     // check if user is deconnected
     if (this.state === lastState && !this.state.isSignIn) {
-      userServices.checkUserStatus(this.updateUserStatus);
+      userServices.checkUserStatus().then(this.updateUserStatus);
     }
   }
 
@@ -37,26 +37,24 @@ class LoginComponent extends Component {
     this.setState({
       transition: true,
     });
-    userServices.signInUser(
-      'test@test.fr',
-      'test@test',
-      (isOk, errorMessage = null) => {
+    userServices
+      .signInUser('test@test.fr', 'test@test')
+      .then((isOk, errorMessage = null) => {
         this.setState({
           isSignIn: isOk,
           error: errorMessage,
           transition: false,
         });
-      },
-    );
+      });
   };
 
   signOut = () => {
     this.setState({
       transition: true,
     });
-    userServices.signOutUser(isOk => {
+    userServices.signOutUser().then(() => {
       this.setState({
-        isSignIn: !isOk,
+        isSignIn: false,
         transition: false,
       });
     });
