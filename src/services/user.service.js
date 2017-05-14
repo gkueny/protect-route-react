@@ -2,67 +2,53 @@ import * as firebase from 'firebase';
 
 /**
  * Check user statut in firebase
- * @param  {Function} callback callback to call when we have firebase's response
- * @return {Boolean}           return users's status type
+ * @return {Promise} return users's status type
  */
-export const checkUserStatus = callback => {
-  const user = firebase.auth().currentUser;
-
-  const statut = user ? true : false;
-  callback(statut);
-  //});
-};
-
-/**
- * Firebase sign in
- * @param  {String}   email          user's mail
- * @param  {String}   password       users's password
- * @param  {Function} callbackSucces function to call after signin
- * @return {Boolean & String}        Success or not and Error message if false
- */
-export const signInUser = (email, password, callbackSucces) => {
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .then(e => {
-      callbackSucces(true);
-    })
-    .catch(error => {
-      callbackSucces(false, error.message);
+export const checkUserStatus = () => {
+  return new Promise(resolve => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
     });
+  });
 };
 
 /**
- * Firebase sign out
- * @param  {Function} callbackSucces function to call after sign out
- * @return {Boolean}                 true if its ok, false otherwise
+ * Firebase log in
+ * @param  {String} email    user's mail
+ * @param  {String} password users's password
+ * @return {Promise}         Success or not and Error message if false
  */
-export const signOutUser = callbackSucces => {
-  firebase.auth().signOut().then(
-    () => {
-      callbackSucces(true);
-    },
-    error => {
-      callbackSucces(false);
-    },
-  );
+export const logIn = (email, password) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(e => {
+        resolve(true);
+      })
+      .catch(error => {
+        reject(error.message);
+      });
+  });
 };
 
 /**
- * Firebase register
- * @param  {String} email            user's mail
- * @param  {String} password         users's password
- * @param  {Function} callbackSucces function to call after register
- * @return {Boolean & String}        Success or not and Error message if false
+ * Firebase log out
+ * @return {Promise} Success or not
  */
-export const registerUser = (email, password, callbackSucces) => {
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then(e => {
-      callbackSucces(true);
-    })
-    .catch(error => {
-      callbackSucces(false, error.message);
-    });
+export const logOut = () => {
+  return new Promise((resolve, reject) => {
+    firebase.auth().signOut().then(
+      () => {
+        resolve();
+      },
+      error => {
+        reject();
+      },
+    );
+  });
 };
