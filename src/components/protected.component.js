@@ -13,7 +13,7 @@ class ProtectedRoute extends Component {
   }
 
   componentDidMount() {
-    // Fait un appel API au serveur et appel la fonction updateUserStatus en lui passant la réponse (positive ou négative du serveur
+    //On check le statut de l'utilisateur auprès du serveur, et on agit en conséquance
     checkUserStatus().then(this.updateUserStatus);
   }
 
@@ -22,7 +22,8 @@ class ProtectedRoute extends Component {
     this.state = {
       isLogIn: null,
     };
-    checkUserStatus().then(this.updateUserStatus); //On fait également cette vérification lors d'un changement
+    //On fait également cette vérification lors d'un changement
+    checkUserStatus().then(this.updateUserStatus);
   }
 
   updateUserStatus = isLogIn => {
