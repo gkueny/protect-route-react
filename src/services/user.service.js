@@ -2,16 +2,17 @@ import * as firebase from 'firebase';
 
 /**
  * Check user statut in firebase
- * @return {Promise} return users's status type
+ * @return {Promise} return users's status type (true, false or null)
  */
 export const checkUserStatus = () => {
   return new Promise(resolve => {
-    firebase.auth().onAuthStateChanged(user => {
+    const unsuscribe = firebase.auth().onAuthStateChanged(user => {
       if (user) {
         resolve(true);
       } else {
         resolve(false);
       }
+      unsuscribe();
     });
   });
 };
@@ -22,7 +23,7 @@ export const checkUserStatus = () => {
  * @param  {String} password users's password
  * @return {Promise}         Success or not and Error message if false
  */
-export const logIn = (email, password) => {
+export const signInUser = (email, password) => {
   return new Promise((resolve, reject) => {
     firebase
       .auth()
@@ -40,7 +41,7 @@ export const logIn = (email, password) => {
  * Firebase log out
  * @return {Promise} Success or not
  */
-export const logOut = () => {
+export const signOutUser = () => {
   return new Promise((resolve, reject) => {
     firebase.auth().signOut().then(
       () => {
